@@ -6,7 +6,7 @@ public class CV {
     private String address;
     private String education;
     private String skills;
-    private String workexperience;
+    private String workExperience;
     private String project;
 
     public CV(String fullname,String email,String phone,String address,String education,String skills,String workexperience,String project )
@@ -17,8 +17,33 @@ public class CV {
         this.address=address;
         this.education=education;
         this.skills=skills;
-        this.workexperience=workexperience;
+        this.workExperience=workExperience;
         this.project=project;
 
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public String getPhone() {
+        return phone;
+    }
+    public String getAddress() {
+        return address;
+    }
+    public String getEducation() {
+        return education;
+    }
+    public String getSkills() {
+        return skills;
+    }
+    public String getWorkexperience() {
+        return workExperience;
+    }
+    public String getProject() {
+        return project;
     }
 }
