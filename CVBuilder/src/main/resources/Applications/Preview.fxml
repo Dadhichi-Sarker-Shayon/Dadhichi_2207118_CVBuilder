@@ -1,14 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
 
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <content>
+            <VBox prefHeight="694.0" prefWidth="897.0" spacing="20.0">
+               <children>
+                  <VBox prefHeight="38.0" prefWidth="898.0" spacing="5.0">
+                     <children>
+                        <Separator prefWidth="200.0" />
+                        <Label prefHeight="26.0" prefWidth="126.0" text="Name : " />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="95.0" prefWidth="898.0" spacing="5.0">
+                     <children>
+                        <Separator prefWidth="200.0" />
+                        <Label prefHeight="18.0" prefWidth="48.0" text="E mail : " />
+                        <Label prefHeight="18.0" prefWidth="49.0" text="Phone : " />
+                        <Label prefHeight="18.0" prefWidth="55.0" text="Address :" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="81.0" prefWidth="898.0" spacing="5.0">
+                     <children>
+                        <Separator prefWidth="200.0" />
+                        <Label prefHeight="18.0" prefWidth="78.0" text="Education : " />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="89.0" prefWidth="898.0" spacing="5.0">
+                     <children>
+                        <Separator prefWidth="200.0" />
+                        <Label prefHeight="18.0" prefWidth="46.0" text="Skills : " />
+                     </children>
+                  </VBox>
+                  <Separator prefWidth="200.0" />
+                  <VBox prefHeight="87.0" prefWidth="898.0" spacing="5.0">
+                     <children>
+                        <Label prefHeight="18.0" prefWidth="120.0" text="Work Experience : " />
+                     </children>
+                  </VBox>
+                  <Separator prefWidth="200.0" />
+                  <VBox prefHeight="104.0" prefWidth="898.0" spacing="5.0">
+                     <children>
+                        <Label prefHeight="18.0" prefWidth="75.0" text="Projects : " />
+                     </children>
+                  </VBox>
+                  <Separator prefWidth="200.0" />
+               </children>
+               <padding>
+                  <Insets left="20.0" right="40.0" top="40.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </center>
+</BorderPane>
