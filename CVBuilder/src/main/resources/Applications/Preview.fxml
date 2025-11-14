@@ -7,58 +7,63 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
+<BorderPane prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
-   <center>
-      <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <content>
-            <VBox prefHeight="694.0" prefWidth="897.0" spacing="20.0">
-               <children>
-                  <VBox prefHeight="38.0" prefWidth="898.0" spacing="5.0">
-                     <children>
-                        <Separator prefWidth="200.0" />
-                        <Label prefHeight="26.0" prefWidth="126.0" text="Name : " />
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="95.0" prefWidth="898.0" spacing="5.0">
-                     <children>
-                        <Separator prefWidth="200.0" />
-                        <Label prefHeight="18.0" prefWidth="48.0" text="E mail : " />
-                        <Label prefHeight="18.0" prefWidth="49.0" text="Phone : " />
-                        <Label prefHeight="18.0" prefWidth="55.0" text="Address :" />
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="81.0" prefWidth="898.0" spacing="5.0">
-                     <children>
-                        <Separator prefWidth="200.0" />
-                        <Label prefHeight="18.0" prefWidth="78.0" text="Education : " />
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="89.0" prefWidth="898.0" spacing="5.0">
-                     <children>
-                        <Separator prefWidth="200.0" />
-                        <Label prefHeight="18.0" prefWidth="46.0" text="Skills : " />
-                     </children>
-                  </VBox>
-                  <Separator prefWidth="200.0" />
-                  <VBox prefHeight="87.0" prefWidth="898.0" spacing="5.0">
-                     <children>
-                        <Label prefHeight="18.0" prefWidth="120.0" text="Work Experience : " />
-                     </children>
-                  </VBox>
-                  <Separator prefWidth="200.0" />
-                  <VBox prefHeight="104.0" prefWidth="898.0" spacing="5.0">
-                     <children>
-                        <Label prefHeight="18.0" prefWidth="75.0" text="Projects : " />
-                     </children>
-                  </VBox>
-                  <Separator prefWidth="200.0" />
-               </children>
+    <center>
+        <ScrollPane fitToWidth="true" BorderPane.alignment="CENTER">
+
+            <content>
+                <VBox spacing="25">
+
+                    <!-- NAME SECTION -->
+                    <VBox spacing="8">
+                        <Separator />
+                        <Label fx:id="nameLabel" style="-fx-font-size: 26px; -fx-font-weight: bold;" text="Name:" />
+                    </VBox>
+
+                    <!-- CONTACT SECTION -->
+                    <VBox spacing="6">
+                        <Separator />
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Contact Information" />
+                        <Label fx:id="emailLabel" text="Email:" />
+                        <Label fx:id="phoneLabel" text="Phone:" />
+                        <Label fx:id="addressLabel" text="Address:" wrapText="true" />
+                    </VBox>
+
+                    <!-- EDUCATION -->
+                    <VBox spacing="6">
+                        <Separator />
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Education" />
+                        <Label fx:id="educationLabel" text="Write Education Here" wrapText="true" />
+                    </VBox>
+
+                    <!-- SKILLS -->
+                    <VBox spacing="6">
+                        <Separator />
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Skills" />
+                        <Label fx:id="skillsLabel" text="Write Skill Here" wrapText="true" />
+                    </VBox>
+
+                    <!-- WORK EXPERIENCE -->
+                    <VBox spacing="6">
+                        <Separator />
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Work Experience" />
+                        <Label fx:id="experienceLabel" prefHeight="18.0" prefWidth="123.0" text="Write Experience Here" wrapText="true" />
+                    </VBox>
+
+                    <!-- PROJECTS -->
+                    <VBox spacing="6">
+                        <Separator />
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Projects" />
+                        <Label fx:id="projectsLabel" text="Write Projects Here" wrapText="true" />
+                    </VBox>
                <padding>
-                  <Insets left="20.0" right="40.0" top="40.0" />
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                </padding>
-            </VBox>
-         </content>
-      </ScrollPane>
-   </center>
+
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+
 </BorderPane>
