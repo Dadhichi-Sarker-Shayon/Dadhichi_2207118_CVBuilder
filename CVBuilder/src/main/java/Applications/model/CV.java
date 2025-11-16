@@ -1,4 +1,5 @@
-package application;
+package Applications.model;
+
 public class CV {
     private String fullname;
     private String email;
@@ -9,17 +10,16 @@ public class CV {
     private String workExperience;
     private String project;
 
-    public CV(String fullname,String email,String phone,String address,String education,String skills,String workexperience,String project )
-    {
-        this.fullname=fullname;
-        this.email=email;
-        this.phone=phone;
-        this.address=address;
-        this.education=education;
-        this.skills=skills;
-        this.workExperience=workExperience;
-        this.project=project;
-
+    public CV(String fullname, String email, String phone, String address,
+              String education, String skills, String workExperience, String project) {
+        this.fullname = fullname;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.education = education;
+        this.skills = skills;
+        this.workExperience = workExperience;
+        this.project = project;
     }
 
     public String getFullname() {
@@ -40,7 +40,7 @@ public class CV {
     public String getSkills() {
         return skills;
     }
-    public String getWorkexperience() {
+    public String getWorkExperience() {
         return workExperience;
     }
     public String getProject() {

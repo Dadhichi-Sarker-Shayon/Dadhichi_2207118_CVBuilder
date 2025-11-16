@@ -9,8 +9,8 @@ module com.example.cvbuilder {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
-    requires com.almasb.fxgl.all;
 
-    opens com.example.cvbuilder to javafx.fxml;
-    exports com.example.cvbuilder;
+    exports Applications;
+
+    opens Applications.controllers to javafx.fxml;
 }
