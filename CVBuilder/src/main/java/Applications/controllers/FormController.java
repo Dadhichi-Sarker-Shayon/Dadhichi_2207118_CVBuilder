@@ -92,8 +92,12 @@ public class FormController {
     @FXML
     private void handleSubmit() {
         if (fullNameField.getText().isEmpty() || emailField.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Please fill in all required fields.");
-            alert.showAndWait();
+            showAlert(Alert.AlertType.ERROR, "Validation Error", "Please fill in all required fields.");
+            return;
+        }
+
+        if (!emailField.getText().matches("\\S+@\\S+\\.\\S+")) {
+            showAlert(Alert.AlertType.ERROR, "Validation Error", "Please enter a valid email address.");
             return;
         }
 
@@ -119,10 +123,15 @@ public class FormController {
             Stage stage = (Stage) fullNameField.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
+
+            showAlert(Alert.AlertType.INFORMATION, "Success", "CV generated successfully!");
+
         } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to generate CV: " + e.getMessage());
             e.printStackTrace();
         }
     }
+
 
     private String getVBoxText(VBox box) {
         StringBuilder sb = new StringBuilder();
@@ -143,4 +152,13 @@ public class FormController {
             stage.show();
         } catch (IOException e) { e.printStackTrace(); }
     }
+
+    private void showAlert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 }
