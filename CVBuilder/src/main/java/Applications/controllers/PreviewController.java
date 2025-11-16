@@ -3,6 +3,8 @@ package Applications.controllers;
 import Applications.model.CV;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class PreviewController {
 
@@ -14,6 +16,7 @@ public class PreviewController {
     @FXML private Label skillsLabel;
     @FXML private Label workLabel;
     @FXML private Label projectsLabel;
+    @FXML private ImageView profileImage;
 
     public void setCV(CV cv) {
         fullNameLabel.setText(cv.getFullname());
@@ -23,6 +26,7 @@ public class PreviewController {
         educationLabel.setText(cv.getEducation());
         skillsLabel.setText(cv.getSkills());
         workLabel.setText(cv.getWorkExperience());
-        projectsLabel.setText(cv.getProject());
+        projectsLabel.setText(cv.getProjects());
+
     }
 }

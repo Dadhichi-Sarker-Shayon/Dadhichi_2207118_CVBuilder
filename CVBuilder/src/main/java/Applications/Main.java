@@ -7,17 +7,16 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/Applications/home.fxml"));
-
         Scene scene = new Scene(root);
-
         scene.getStylesheets().add(getClass().getResource("/Applications/style.css").toExternalForm());
 
         primaryStage.setTitle("CV Builder");
         primaryStage.setScene(scene);
+        primaryStage.setWidth(920);
+        primaryStage.setHeight(700);
         primaryStage.show();
     }
 
