@@ -6,101 +6,141 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 public class FormController {
 
-    @FXML private TextField fullNameField;
-    @FXML private TextField emailField;
-    @FXML private TextField phoneField;
+    @FXML private TextField fullNameField, emailField, phoneField;
     @FXML private TextArea addressField;
-    @FXML private TextArea educationField;
-    @FXML private TextArea skillsField;
-    @FXML private TextArea workField;
-    @FXML private TextArea projectsField;
+    @FXML private VBox educationList, skillsList, workList, projectsList;
+    @FXML private ImageView photoPreview;
 
-    @FXML private Button generateButton;
-    @FXML private Button homeButton;
+    private String selectedPhotoPath = null;
+    private CV cv;
 
-    @FXML
-    private void initialize() {
-        generateButton.setOnAction(e -> handleGenerate());
-        homeButton.setOnAction(e -> goHome());
+    public void setCV(CV cv) {
+        this.cv = cv;
+        populateFields();
     }
 
-    private void goHome() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Applications/home.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) homeButton.getScene().getWindow();
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("/Applications/style.css").toExternalForm());
-            stage.setScene(scene);
-            stage.setTitle("CV Builder");
-            stage.show();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+    private void populateFields() {
+        if (cv == null) return;
+        fullNameField.setText(cv.getFullname());
+        emailField.setText(cv.getEmail());
+        phoneField.setText(cv.getPhone());
+        addressField.setText(cv.getAddress());
+
+        populateVBox(educationList, cv.getEducation());
+        populateVBox(skillsList, cv.getSkills());
+        populateVBox(workList, cv.getWorkExperience());
+        populateVBox(projectsList, cv.getProject());
+
+        if (cv.getProfileImagePath() != null) {
+            Image img = new Image(cv.getProfileImagePath(), 120, 120, true, true);
+            photoPreview.setImage(img);
+            Circle clip = new Circle(60, 60, 60);
+            photoPreview.setClip(clip);
+            selectedPhotoPath = cv.getProfileImagePath();
         }
     }
 
-    private void handleGenerate() {
-        if (!validate()) return;
+    private void populateVBox(VBox box, String data) {
+        box.getChildren().clear();
+        if (data != null && !data.isEmpty()) {
+            for (String line : data.split("\n")) {
+                TextField tf = new TextField(line);
+                box.getChildren().add(tf);
+            }
+        }
+    }
+
+    @FXML private void addEducation() { addTextField(educationList, "Enter degree / qualification"); }
+    @FXML private void addSkill() { addTextField(skillsList, "Enter a skill"); }
+    @FXML private void addWorkExperience() { addTextField(workList, "Enter work experience"); }
+    @FXML private void addProject() { addTextField(projectsList, "Enter project"); }
+
+    private void addTextField(VBox box, String prompt) {
+        TextField tf = new TextField();
+        tf.setPromptText(prompt);
+        box.getChildren().add(tf);
+    }
+
+    @FXML
+    private void handleUploadPhoto() {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Select Profile Photo");
+        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
+
+        File file = chooser.showOpenDialog(null);
+        if (file != null) {
+            selectedPhotoPath = file.toURI().toString();
+            Image img = new Image(selectedPhotoPath, 120, 120, true, true);
+            photoPreview.setImage(img);
+            Circle clip = new Circle(60, 60, 60);
+            photoPreview.setClip(clip);
+        }
+    }
+
+    @FXML
+    private void handleSubmit() {
+        if (fullNameField.getText().isEmpty() || emailField.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please fill in all required fields.");
+            alert.showAndWait();
+            return;
+        }
 
         CV cv = new CV(
-                fullNameField.getText().trim(),
-                emailField.getText().trim(),
-                phoneField.getText().trim(),
-                addressField.getText().trim(),
-                educationField.getText().trim(),
-                skillsField.getText().trim(),
-                workField.getText().trim(),
-                projectsField.getText().trim()
+                fullNameField.getText(),
+                emailField.getText(),
+                phoneField.getText(),
+                addressField.getText(),
+                getVBoxText(educationList),
+                getVBoxText(skillsList),
+                getVBoxText(workList),
+                getVBoxText(projectsList),
+                selectedPhotoPath
         );
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Applications/preview.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Applications/Preview.fxml"));
             Parent root = loader.load();
-
             PreviewController previewController = loader.getController();
             previewController.setCV(cv);
+            previewController.setFormController(this);
 
-            Stage stage = new Stage();
-            stage.setTitle("CV Preview");
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("/Applications/style.css").toExternalForm());
-            stage.setScene(scene);
-            stage.initOwner(generateButton.getScene().getWindow());
+            Stage stage = (Stage) fullNameField.getScene().getWindow();
+            stage.setScene(new Scene(root));
             stage.show();
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    private boolean validate() {
-        if (fullNameField.getText().trim().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Validation error", "Full Name is required.");
-            return false;
+    private String getVBoxText(VBox box) {
+        StringBuilder sb = new StringBuilder();
+        for (javafx.scene.Node node : box.getChildren()) {
+            if (node instanceof TextField) {
+                String txt = ((TextField) node).getText();
+                if (!txt.isEmpty()) sb.append(txt).append("\n");
+            }
         }
-        String email = emailField.getText().trim();
-        if (email.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Validation error", "Email is required.");
-            return false;
-        }
-        if (!email.contains("@") || !email.contains(".")) {
-            showAlert(Alert.AlertType.WARNING, "Validation warning", "Please enter a valid email.");
-            return false;
-        }
-        return true;
+        return sb.toString().trim();
     }
 
-    private void showAlert(Alert.AlertType t, String title, String msg) {
-        Alert a = new Alert(t);
-        a.setTitle(title);
-        a.setHeaderText(null);
-        a.setContentText(msg);
-        a.showAndWait();
+    public void goBackToHome() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Applications/home.fxml"));
+            Stage stage = (Stage) fullNameField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) { e.printStackTrace(); }
     }
 }

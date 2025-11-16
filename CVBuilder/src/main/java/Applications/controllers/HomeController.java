@@ -10,23 +10,19 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HomeController {
-
-    @FXML private Button createButton;
+    @FXML private Button startButton;
 
     @FXML
     private void initialize() {
-        createButton.setOnAction(e -> openForm());
+        startButton.setOnAction(e -> openForm());
     }
 
     private void openForm() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Applications/form.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) createButton.getScene().getWindow();
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("/Applications/style.css").toExternalForm());
-            stage.setScene(scene);
-            stage.setTitle("Create CV");
+            Stage stage = (Stage) startButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException ex) {
             ex.printStackTrace();

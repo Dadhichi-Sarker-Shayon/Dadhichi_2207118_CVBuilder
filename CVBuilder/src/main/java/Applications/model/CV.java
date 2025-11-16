@@ -1,17 +1,10 @@
 package Applications.model;
 
 public class CV {
-    private final String fullname;
-    private final String email;
-    private final String phone;
-    private final String address;
-    private final String education;
-    private final String skills;
-    private final String workExperience;
-    private final String projects;
+    private String fullname, email, phone, address, education, skills, workExperience, project, profileImagePath;
 
     public CV(String fullname, String email, String phone, String address,
-              String education, String skills, String workExperience, String projects) {
+              String education, String skills, String workExperience, String project, String profileImagePath) {
         this.fullname = fullname;
         this.email = email;
         this.phone = phone;
@@ -19,7 +12,8 @@ public class CV {
         this.education = education;
         this.skills = skills;
         this.workExperience = workExperience;
-        this.projects = projects;
+        this.project = project;
+        this.profileImagePath = profileImagePath;
     }
 
     public String getFullname() { return fullname; }
@@ -29,5 +23,8 @@ public class CV {
     public String getEducation() { return education; }
     public String getSkills() { return skills; }
     public String getWorkExperience() { return workExperience; }
-    public String getProjects() { return projects; }
+    public String getProject() { return project; }
+    public String getProfileImagePath() { return profileImagePath; }
+
+    public void setProfileImagePath(String profileImagePath) { this.profileImagePath = profileImagePath; }
 }

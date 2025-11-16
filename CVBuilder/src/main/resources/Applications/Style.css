@@ -9,7 +9,6 @@
     -fx-font-weight: bold;
     -fx-alignment: center;
 }
-
 .home-sub {
     -fx-font-size: 16px;
     -fx-text-fill: #34495e;
@@ -25,7 +24,7 @@
 .content-box {
     -fx-background-color: #ffffff;
     -fx-background-radius: 10;
-    -fx-padding: 18;
+    -fx-padding: 40 50 50 50; /* matches new VBox padding in form.fxml */
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 0, 3);
     -fx-max-width: 820;
 }
@@ -34,10 +33,9 @@
     -fx-background-color: linear-gradient(to bottom, #1abc9c, #16a085);
     -fx-text-fill: white;
     -fx-font-weight: 600;
-    -fx-background-radius: 20;
-    -fx-padding: 8 16;
+    -fx-background-radius: 05;
+    -fx-padding: 4 8;
 }
-
 .button:hover, .primary-button:hover {
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 8,0,0,3);
 }
@@ -55,15 +53,38 @@
     -fx-font-weight: 700;
     -fx-text-fill: #2c3e50;
 }
-
 .preview-sub {
     -fx-font-size: 13px;
     -fx-text-fill: #6c7a89;
 }
-
 .section-title {
     -fx-font-size: 15px;
     -fx-font-weight: 700;
     -fx-text-fill: #1abc9c;
     -fx-padding: 6 0 2 0;
+}
+
+.image-view, #profilePreview, #profilePreview {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0, 0, 2);
+    -fx-background-radius: 50;
+    -fx-border-radius: 50;
+    -fx-border-color: #1abc9c;
+    -fx-border-width: 3;
+}
+
+.circular-image {
+    -fx-clip: true;
+    -fx-background-radius: 50;
+}
+
+.vbox-padding-20 {
+    -fx-padding: 20;
+}
+
+.hbox-spacing-10 {
+    -fx-spacing: 10;
+}
+
+.hbox-margin-top-40 {
+    -fx-padding: 40 0 0 0;
 }

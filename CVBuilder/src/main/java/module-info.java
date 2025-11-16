@@ -4,5 +4,4 @@ module com.example.cvbuilder {
 
     exports Applications;
     opens Applications.controllers to javafx.fxml;
-    opens Applications.model to javafx.fxml;
 }

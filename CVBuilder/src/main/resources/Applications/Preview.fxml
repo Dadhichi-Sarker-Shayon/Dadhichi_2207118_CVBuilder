@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
@@ -9,10 +10,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="700" prefWidth="920" styleClass="root-pane" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Applications.controllers.PreviewController">
+<BorderPane prefHeight="700" prefWidth="827.0" styleClass="root-pane" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Applications.controllers.PreviewController">
 
     <top>
-        <Label alignment="CENTER" contentDisplay="CENTER" styleClass="page-title" text="CV Preview">
+        <Label alignment="CENTER" contentDisplay="CENTER" styleClass="page-title" text="CV Preview" textFill="#109e61ed">
             <BorderPane.margin>
                 <Insets bottom="8.0" left="400.0" right="40.0" top="20.0" />
             </BorderPane.margin>
@@ -22,74 +23,42 @@
     <center>
         <ScrollPane fitToWidth="true">
             <content>
-                <VBox prefHeight="586.0" prefWidth="918.0" spacing="12" styleClass="content-box">
-                    <HBox spacing="12">
-                        <ImageView fx:id="profileImage" fitHeight="100" fitWidth="100" preserveRatio="true" />
-                        <VBox>
-                            <Label fx:id="fullNameLabel" styleClass="preview-name" text="Full Name">
-                        <VBox.margin>
-                           <Insets bottom="10.0" />
-                        </VBox.margin></Label>
-                            <Label fx:id="emailLabel" styleClass="preview-sub" text="Email">
-                        <VBox.margin>
-                           <Insets bottom="10.0" />
-                        </VBox.margin></Label>
-                            <Label fx:id="phoneLabel" styleClass="preview-sub" text="Phone Number">
-                        <VBox.margin>
-                           <Insets />
-                        </VBox.margin></Label>
-                     <HBox.margin>
-                        <Insets left="60.0" />
-                     </HBox.margin>
+                <VBox maxWidth="922.0" prefHeight="647.0" prefWidth="922.0" spacing="12" styleClass="content-box">
+
+                    <HBox prefHeight="151.0" prefWidth="719.0" spacing="12">
+                        <ImageView fx:id="profileImage" fitHeight="152.0" fitWidth="177.0" preserveRatio="true" />
+                        <VBox prefHeight="154.0" prefWidth="558.0">
+                            <Label fx:id="fullNameLabel" styleClass="preview-name" />
+                            <Label fx:id="emailLabel" styleClass="preview-sub" />
+                            <Label fx:id="phoneLabel" styleClass="preview-sub" />
                         </VBox>
                     </HBox>
 
                     <Separator />
 
-                    <Label styleClass="section-title" text="Address">
-                  <VBox.margin>
-                     <Insets bottom="20.0" left="50.0" />
-                  </VBox.margin></Label>
-                    <Label fx:id="addressLabel" wrapText="true">
-                  <VBox.margin>
-                     <Insets left="50.0" />
-                  </VBox.margin></Label>
+                    <Label styleClass="section-title" text="Address" />
+                    <Label fx:id="addressLabel" wrapText="true" />
 
-                    <Label styleClass="section-title" text="Education">
-                  <VBox.margin>
-                     <Insets bottom="20.0" left="50.0" />
-                  </VBox.margin></Label>
-                    <Label fx:id="educationLabel" wrapText="true">
-                  <VBox.margin>
-                     <Insets left="50.0" />
-                  </VBox.margin></Label>
+                    <Label styleClass="section-title" text="Education" />
+                    <VBox fx:id="educationVBox" spacing="4" />
 
-                    <Label styleClass="section-title" text="Skills">
-                  <VBox.margin>
-                     <Insets bottom="40.0" left="50.0" />
-                  </VBox.margin></Label>
-                    <Label fx:id="skillsLabel" wrapText="true">
-                  <VBox.margin>
-                     <Insets left="50.0" />
-                  </VBox.margin></Label>
+                    <Label styleClass="section-title" text="Skills" />
+                    <VBox fx:id="skillsVBox" spacing="4" />
 
-                    <Label styleClass="section-title" text="Work Experience">
-                  <VBox.margin>
-                     <Insets bottom="20.0" left="50.0" />
-                  </VBox.margin></Label>
-                    <Label fx:id="workLabel" wrapText="true">
-                  <VBox.margin>
-                     <Insets left="50.0" />
-                  </VBox.margin></Label>
+                    <Label styleClass="section-title" text="Work Experience" />
+                    <VBox fx:id="workVBox" spacing="4" />
 
-                    <Label styleClass="section-title" text="Projects">
+                    <Label styleClass="section-title" text="Projects" />
+                    <VBox fx:id="projectsVBox" prefHeight="23.0" prefWidth="719.0" spacing="4" />
+
+                    <HBox prefHeight="34.0" prefWidth="719.0" spacing="15">
+                        <Button fx:id="editButton" onAction="#handleEdit" styleClass="primary-button" text="Edit CV" />
+                        <Button fx:id="homeButton" onAction="#handleGoHome" styleClass="primary-button" text="Back to Home" />
                   <VBox.margin>
-                     <Insets bottom="40.0" left="50.0" />
-                  </VBox.margin></Label>
-                    <Label fx:id="projectsLabel" wrapText="true">
-                  <VBox.margin>
-                     <Insets left="50.0" />
-                  </VBox.margin></Label>
+                     <Insets />
+                  </VBox.margin>
+                    </HBox>
+
                 </VBox>
             </content>
         </ScrollPane>
