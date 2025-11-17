@@ -25,7 +25,7 @@
             <content>
                 <VBox maxWidth="922.0" prefHeight="647.0" prefWidth="922.0" spacing="12" styleClass="content-box">
 
-                    <HBox prefHeight="151.0" prefWidth="719.0" spacing="12">
+                    <HBox prefHeight="151.0" prefWidth="719.0" spacing="12" styleClass="custom-hbox">
                         <ImageView fx:id="profileImage" fitHeight="152.0" fitWidth="177.0" preserveRatio="true" />
                         <VBox prefHeight="154.0" prefWidth="558.0">
                             <Label fx:id="fullNameLabel" styleClass="preview-name" />
@@ -38,18 +38,23 @@
 
                     <Label styleClass="section-title" text="Address" />
                     <Label fx:id="addressLabel" wrapText="true" />
+                    <Separator />
 
                     <Label styleClass="section-title" text="Education" />
                     <VBox fx:id="educationVBox" spacing="4" />
+                    <Separator />
 
                     <Label styleClass="section-title" text="Skills" />
                     <VBox fx:id="skillsVBox" spacing="4" />
+                    <Separator />
 
                     <Label styleClass="section-title" text="Work Experience" />
                     <VBox fx:id="workVBox" spacing="4" />
+                    <Separator />
 
                     <Label styleClass="section-title" text="Projects" />
                     <VBox fx:id="projectsVBox" prefHeight="23.0" prefWidth="719.0" spacing="4" />
+                    <Separator />
 
                     <HBox prefHeight="34.0" prefWidth="719.0" spacing="15">
                         <Button fx:id="editButton" onAction="#handleEdit" styleClass="primary-button" text="Edit CV" />

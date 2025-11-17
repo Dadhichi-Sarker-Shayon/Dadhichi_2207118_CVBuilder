@@ -31,7 +31,7 @@ public class PreviewController {
     }
 
     public void setCV(CV cv) {
-        this.originalCV = cv;  // Important fix
+        this.originalCV = cv;
 
         fullNameLabel.setText(cv.getFullname());
         emailLabel.setText(cv.getEmail());

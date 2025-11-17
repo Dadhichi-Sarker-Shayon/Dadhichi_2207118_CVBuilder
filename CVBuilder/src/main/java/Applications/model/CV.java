@@ -26,5 +26,5 @@ public class CV {
     public String getProject() { return project; }
     public String getProfileImagePath() { return profileImagePath; }
 
-    public void setProfileImagePath(String profileImagePath) { this.profileImagePath = profileImagePath; }
+   // public void setProfileImagePath(String profileImagePath) { this.profileImagePath = profileImagePath; }
 }

@@ -88,3 +88,9 @@
 .hbox-margin-top-40 {
     -fx-padding: 40 0 0 0;
 }
+.custom-hbox {
+    -fx-background-color: linear-gradient(to right, #11998e, #38ef7d);
+    -fx-padding: 10;
+    -fx-background-radius: 10;
+}
+
