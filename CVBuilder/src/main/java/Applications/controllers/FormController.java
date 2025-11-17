@@ -21,7 +21,7 @@ public class FormController {
     @FXML private TextField fullNameField, emailField, phoneField;
     @FXML private TextArea addressField;
     @FXML private VBox educationList, skillsList, workList, projectsList;
-    @FXML private ImageView photoPreview;
+    @FXML private ImageView profilePreview;
 
     private String selectedPhotoPath = null;
     private CV cv;
@@ -45,10 +45,11 @@ public class FormController {
 
         if (cv.getProfileImagePath() != null) {
             Image img = new Image(cv.getProfileImagePath(), 120, 120, true, true);
-            photoPreview.setImage(img);
+            profilePreview.setImage(img);
             Circle clip = new Circle(60, 60, 60);
-            photoPreview.setClip(clip);
+            profilePreview.setClip(clip);
             selectedPhotoPath = cv.getProfileImagePath();
+
         }
     }
 
@@ -83,9 +84,9 @@ public class FormController {
         if (file != null) {
             selectedPhotoPath = file.toURI().toString();
             Image img = new Image(selectedPhotoPath, 120, 120, true, true);
-            photoPreview.setImage(img);
+            profilePreview.setImage(img);
             Circle clip = new Circle(60, 60, 60);
-            photoPreview.setClip(clip);
+            profilePreview.setClip(clip);
         }
     }
 
@@ -146,7 +147,7 @@ public class FormController {
 
     public void goBackToHome() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Applications/home.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/Applications/Home.fxml"));
             Stage stage = (Stage) fullNameField.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

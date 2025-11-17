@@ -24,9 +24,15 @@ public class PreviewController {
 
     private FormController formController;
 
-    public void setFormController(FormController controller) { this.formController = controller; }
+    private CV originalCV;
+
+    public void setFormController(FormController controller) {
+        this.formController = controller;
+    }
 
     public void setCV(CV cv) {
+        this.originalCV = cv;  // Important fix
+
         fullNameLabel.setText(cv.getFullname());
         emailLabel.setText(cv.getEmail());
         phoneLabel.setText(cv.getPhone());
@@ -63,22 +69,15 @@ public class PreviewController {
             Parent root = loader.load();
             FormController controller = loader.getController();
 
-            controller.setCV(new CV(
-                    fullNameLabel.getText(),
-                    emailLabel.getText(),
-                    phoneLabel.getText(),
-                    addressLabel.getText(),
-                    getVBoxText(educationVBox),
-                    getVBoxText(skillsVBox),
-                    getVBoxText(workVBox),
-                    getVBoxText(projectsVBox),
-                    profileImage.getImage() != null ? profileImage.getImage().getUrl() : null
-            ));
+            controller.setCV(originalCV);
 
             Stage stage = (Stage) editButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-        } catch (IOException e) { e.printStackTrace(); }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -89,16 +88,8 @@ public class PreviewController {
             Stage stage = (Stage) homeButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-        } catch (IOException e) { e.printStackTrace(); }
-    }
-
-    private String getVBoxText(VBox container) {
-        StringBuilder sb = new StringBuilder();
-        container.getChildren().forEach(node -> {
-            if (node instanceof Label) {
-                sb.append(((Label) node).getText()).append("\n");
-            }
-        });
-        return sb.toString().trim();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
