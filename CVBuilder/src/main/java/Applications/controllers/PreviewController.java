@@ -83,7 +83,7 @@ public class PreviewController {
     @FXML
     private void handleGoHome() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Applications/home.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Applications/Home.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) homeButton.getScene().getWindow();
             stage.setScene(new Scene(root));
