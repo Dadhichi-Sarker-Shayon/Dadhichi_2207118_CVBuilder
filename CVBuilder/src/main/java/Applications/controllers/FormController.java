@@ -1,5 +1,6 @@
 package Applications.controllers;
 
+import Applications.Database.DatabaseHelper;
 import Applications.model.CV;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,19 +38,15 @@ public class FormController {
         emailField.setText(cv.getEmail());
         phoneField.setText(cv.getPhone());
         addressField.setText(cv.getAddress());
-
         populateVBox(educationList, cv.getEducation());
         populateVBox(skillsList, cv.getSkills());
         populateVBox(workList, cv.getWorkExperience());
         populateVBox(projectsList, cv.getProject());
-
         if (cv.getProfileImagePath() != null) {
             Image img = new Image(cv.getProfileImagePath(), 120, 120, true, true);
             profilePreview.setImage(img);
-            Circle clip = new Circle(60, 60, 60);
-            profilePreview.setClip(clip);
+            profilePreview.setClip(new Circle(60, 60, 60));
             selectedPhotoPath = cv.getProfileImagePath();
-
         }
     }
 
@@ -74,19 +71,16 @@ public class FormController {
         box.getChildren().add(tf);
     }
 
-    @FXML
-    private void handleUploadPhoto() {
+    @FXML private void handleUploadPhoto() {
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Select Profile Photo");
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
-
         File file = chooser.showOpenDialog(null);
         if (file != null) {
             selectedPhotoPath = file.toURI().toString();
             Image img = new Image(selectedPhotoPath, 120, 120, true, true);
             profilePreview.setImage(img);
-            Circle clip = new Circle(60, 60, 60);
-            profilePreview.setClip(clip);
+            profilePreview.setClip(new Circle(60, 60, 60));
         }
     }
 
@@ -97,12 +91,10 @@ public class FormController {
             return;
         }
 
-        if (!emailField.getText().matches("\\S+@\\S+\\.\\S+")) {
-            showAlert(Alert.AlertType.ERROR, "Validation Error", "Please enter a valid email address.");
-            return;
-        }
+        boolean isEditing = cv != null && cv.getId() > 0;
 
-        CV cv = new CV(
+        CV newCV = new CV(
+                isEditing ? cv.getId() : -1,
                 fullNameField.getText(),
                 emailField.getText(),
                 phoneField.getText(),
@@ -114,44 +106,68 @@ public class FormController {
                 selectedPhotoPath
         );
 
+        boolean success;
+        if (isEditing) {
+            success = DatabaseHelper.updateCV(
+                    newCV.getId(),
+                    newCV.getFullname(),
+                    newCV.getEmail(),
+                    newCV.getPhone(),
+                    newCV.getAddress(),
+                    newCV.getEducation(),
+                    newCV.getSkills(),
+                    newCV.getWorkExperience(),
+                    newCV.getProject(),
+                    newCV.getProfileImagePath()
+            );
+        } else {
+            int generatedId = DatabaseHelper.insertCVAndReturnId(
+                    newCV.getFullname(),
+                    newCV.getEmail(),
+                    newCV.getPhone(),
+                    newCV.getAddress(),
+                    newCV.getEducation(),
+                    newCV.getSkills(),
+                    newCV.getWorkExperience(),
+                    newCV.getProject(),
+                    newCV.getProfileImagePath()
+            );
+            if (generatedId > 0) {
+                newCV.setId(generatedId);
+                success = true;
+            } else success = false;
+        }
+
+        if (!success) {
+            showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to save CV.");
+            return;
+        }
+
+        this.cv = newCV;
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Applications/Preview.fxml"));
             Parent root = loader.load();
             PreviewController previewController = loader.getController();
-            previewController.setCV(cv);
+            previewController.setCV(newCV);
             previewController.setFormController(this);
 
             Stage stage = (Stage) fullNameField.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-
-            showAlert(Alert.AlertType.INFORMATION, "Success", "CV generated successfully!");
-
         } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Failed to generate CV: " + e.getMessage());
             e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to open preview: " + e.getMessage());
         }
     }
 
 
     private String getVBoxText(VBox box) {
         StringBuilder sb = new StringBuilder();
-        for (javafx.scene.Node node : box.getChildren()) {
-            if (node instanceof TextField) {
-                String txt = ((TextField) node).getText();
-                if (!txt.isEmpty()) sb.append(txt).append("\n");
-            }
+        for (var node : box.getChildren()) {
+            if (node instanceof TextField tf && !tf.getText().isEmpty()) sb.append(tf.getText()).append("\n");
         }
         return sb.toString().trim();
-    }
-
-    public void goBackToHome() {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Applications/Home.fxml"));
-            Stage stage = (Stage) fullNameField.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) { e.printStackTrace(); }
     }
 
     private void showAlert(Alert.AlertType type, String title, String message) {
@@ -161,5 +177,4 @@ public class FormController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
 }

@@ -23,31 +23,24 @@ public class PreviewController {
     @FXML private ImageView profileImage;
 
     private FormController formController;
-
     private CV originalCV;
 
-    public void setFormController(FormController controller) {
-        this.formController = controller;
-    }
+    public void setFormController(FormController controller) { this.formController = controller; }
 
     public void setCV(CV cv) {
         this.originalCV = cv;
-
         fullNameLabel.setText(cv.getFullname());
         emailLabel.setText(cv.getEmail());
         phoneLabel.setText(cv.getPhone());
         addressLabel.setText(cv.getAddress());
-
         populateVBox(educationVBox, cv.getEducation());
         populateVBox(skillsVBox, cv.getSkills());
         populateVBox(workVBox, cv.getWorkExperience());
         populateVBox(projectsVBox, cv.getProject());
-
         if (cv.getProfileImagePath() != null) {
             Image img = new Image(cv.getProfileImagePath(), 100, 100, true, true);
             profileImage.setImage(img);
-            Circle clip = new Circle(50, 50, 50);
-            profileImage.setClip(clip);
+            profileImage.setClip(new Circle(50, 50, 50));
         }
     }
 
@@ -62,34 +55,24 @@ public class PreviewController {
         }
     }
 
-    @FXML
-    private void handleEdit() {
+    @FXML private void handleEdit() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Applications/form.fxml"));
             Parent root = loader.load();
             FormController controller = loader.getController();
-
             controller.setCV(originalCV);
-
             Stage stage = (Stage) editButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException e) { e.printStackTrace(); }
     }
 
-    @FXML
-    private void handleGoHome() {
+    @FXML private void handleGoHome() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Applications/Home.fxml"));
-            Parent root = loader.load();
+            Parent root = FXMLLoader.load(getClass().getResource("/Applications/Home.fxml"));
             Stage stage = (Stage) homeButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException e) { e.printStackTrace(); }
     }
 }
