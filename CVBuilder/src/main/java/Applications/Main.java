@@ -11,7 +11,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        DatabaseHelper.createTable(); // ensure DB exists
+        DatabaseHelper.createTable();
         Parent root = FXMLLoader.load(getClass().getResource("/Applications/Home.fxml"));
         primaryStage.setTitle("CV Builder");
         primaryStage.setScene(new Scene(root));
